@@ -178,6 +178,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 DJOSER = {
+    'LOGIN_FIELD': 'email',
     'SERIALIZERS': {
         'user_create': 'apps.user.serializers.CustomUserCreateSerializer',
         'user': 'apps.user.serializers.CustomUserSerializer',
@@ -185,7 +186,10 @@ DJOSER = {
     },
     'SEND_ACTIVATION_EMAIL': True,
     'ACTIVATION_URL': 'auth/confirm-email/{uid}/{token}',
-    'PASSWORD_RESET_CONFIRM_URL': 'auth/password-reset-confirm/{uid}/{token}'
+    'PASSWORD_RESET_CONFIRM_URL': 'auth/password-reset-confirm/{uid}/{token}',
+    'EMAIL': {
+        'activation': 'apps.user.emails.CustomActivationEmail'
+    }
 }
 
 EMAIL_USE_TLS = True
@@ -222,6 +226,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -241,10 +246,12 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'AudioBook',
     'DESCRIPTION': 'Mobile app API',
     'VERSION': '0.0.1',
-    'SERVE_INCLUDE_SCHEMA': False,
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SCHEMA_PATH_PREFIX': r'/',  # Make sure all endpoints are picked up
+    'SERVE_INCLUDE_SCHEMA': True,
 }
 
 # Path to your Firebase service account key JSON file
@@ -266,6 +273,14 @@ MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
 
 # looking up existing tags
 TAGGIT_CASE_INSENSITIVE = True
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # Short-lived token for normal login
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Normal refresh token lifespan
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
 
 if __name__ == '__main__':
     ic(BASE_DIR)
