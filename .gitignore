@@ -114,11 +114,12 @@ GitHub.sublime-settings
 .history
 .vercel
 
+# Databases
+db.sqlite3
 
 playground/
 auth.log
 media/
 credentials/serviceAccountKey.json
 
-# Databases
-db.sqlite3
+staticfiles/

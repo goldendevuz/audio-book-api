@@ -22,3 +22,9 @@ cru:
 	python manage.py createsuperuser --email=goldendevuz@gmail.com --birth_date=2005-01-24
 #make cru email=goldendevuz@gmail.com birth=2005-01-24
 #python manage.py createsuperuser --email $(email) --birth_date=$(birth)
+mig:
+	make migration && make migrate
+run-asgi:
+	uvicorn AudioBook.asgi:application --host 0.0.0.0 --port 2026 --reload
+collect:
+	python manage.py collectstatic --noinput
