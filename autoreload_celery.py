@@ -27,7 +27,7 @@ class RestartOnChangeHandler(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
-    command = "celery -A AudioBook worker --loglevel=info"
+    command = "celery -A core worker --loglevel=info"
     event_handler = RestartOnChangeHandler(command)
     observer = Observer()
     observer.schedule(event_handler, path='.', recursive=True)

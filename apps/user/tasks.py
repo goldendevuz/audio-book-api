@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.mail import send_mail
 
-from AudioBook.celery import app
+from .celery import app
 
 
 @app.task(bind=True)
