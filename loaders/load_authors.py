@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Setup Django environment
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AudioBook.settings.local')  # Replace with your project settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.local')  # Replace with your project settings
 django.setup()
 
 from apps.author.models import Author  # Replace with your actual app name

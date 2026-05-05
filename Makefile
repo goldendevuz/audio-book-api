@@ -25,6 +25,6 @@ cru:
 mig:
 	make migration && make migrate
 run-asgi:
-	uvicorn AudioBook.asgi:application --host 0.0.0.0 --port 2026 --reload
+	uvicorn core.asgi:application --host [IP_ADDRESS] --port 8000 --reload
 collect:
 	python manage.py collectstatic --noinput
